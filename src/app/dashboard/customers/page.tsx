@@ -1,13 +1,27 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { ChevronLeftIcon, ChevronRightIcon, FilterIcon, MoreHorizontalIcon } from "@/icons/Icons"
+"use client";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
+import { ChevronLeftIcon, ChevronRightIcon, FilterIcon, MoreHorizontalIcon } from "@/icons/Icons";
+import { useState } from 'react';
 
 export default function Customer() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredCustomers, setFilteredCustomers] = useState(customers);
+
+  const handleSearch = (event) => {
+    const searchValue = event.target.value.toLowerCase();
+    setSearchTerm(searchValue);
+    const filtered = customers.filter((customer) =>
+      customer.name.toLowerCase().includes(searchValue)
+    );
+    setFilteredCustomers(filtered);
+  };
+
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
       <div className="flex items-center gap-4">
@@ -29,12 +43,17 @@ export default function Customer() {
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <div className="flex-1">
-            <Input className="w-full" placeholder="Search customers..." type="search" />
+            <Input
+              className="w-full"
+              placeholder="Search customers..."
+              type="search"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
           </div>
           <Accordion collapsible type="single">
             <AccordionItem value="filters">
               <AccordionTrigger className="flex items-center gap-2">
-                {/* <FilterIcon className="h-4 w-4" /> */}
                 <FilterIcon className="h-4 w-4" />
                 Filters
               </AccordionTrigger>
@@ -42,7 +61,6 @@ export default function Customer() {
                 <div className="grid gap-4">
                   <div className="grid gap-2">
                     <Label htmlFor="status">Status</Label>
-                    {/* <Select id="status"> */}
                     <Select>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select status" />
@@ -58,7 +76,6 @@ export default function Customer() {
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="location">Location</Label>
-                    {/* <Select id="location"> */}
                     <Select>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select location" />
@@ -103,102 +120,51 @@ export default function Customer() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">Customer</TableHead>
-                <TableHead className="min-w-[150px]">Email</TableHead>
-                <TableHead className="hidden md:table-cell">Location</TableHead>
-                <TableHead className="hidden md:table-cell">Orders</TableHead>
-                <TableHead className="hidden sm:table-cell">Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableCell className="w-[100px]">Customer</TableCell>
+                <TableCell className="min-w-[150px]">Email</TableCell>
+                <TableCell className="hidden md:table-cell">Location</TableCell>
+                <TableCell className="hidden md:table-cell">Orders</TableCell>
+                <TableCell className="hidden sm:table-cell">Status</TableCell>
+                <TableCell className="text-right">Actions</TableCell>
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">Olivia Martin</TableCell>
-                <TableCell>olivia@example.com</TableCell>
-                <TableCell className="hidden md:table-cell">USA</TableCell>
-                <TableCell className="hidden md:table-cell">12</TableCell>
-                <TableCell className="hidden sm:table-cell">Active</TableCell>
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button size="icon" variant="ghost">
-                        <MoreHorizontalIcon className="w-4 h-4" />
-                        <span className="sr-only">Actions</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem>View customer</DropdownMenuItem>
-                      <DropdownMenuItem>Edit customer</DropdownMenuItem>
-                      <DropdownMenuItem>Orders</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Ava Johnson</TableCell>
-                <TableCell>ava@example.com</TableCell>
-                <TableCell className="hidden md:table-cell">Canada</TableCell>
-                <TableCell className="hidden md:table-cell">7</TableCell>
-                <TableCell className="hidden sm:table-cell">Active</TableCell>
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button size="icon" variant="ghost">
-                        <MoreHorizontalIcon className="w-4 h-4" />
-                        <span className="sr-only">Actions</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem>View customer</DropdownMenuItem>
-                      <DropdownMenuItem>Edit customer</DropdownMenuItem>
-                      <DropdownMenuItem>Orders</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Michael Johnson</TableCell>
-                <TableCell>michael@example.com</TableCell>
-                <TableCell className="hidden md:table-cell">Europe</TableCell>
-                <TableCell className="hidden md:table-cell">3</TableCell>
-                <TableCell className="hidden sm:table-cell">Inactive</TableCell>
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button size="icon" variant="ghost">
-                        <MoreHorizontalIcon className="w-4 h-4" />
-                        <span className="sr-only">Actions</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem>View customer</DropdownMenuItem>
-                      <DropdownMenuItem>Edit customer</DropdownMenuItem>
-                      <DropdownMenuItem>Orders</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Lisa Anderson</TableCell>
-                <TableCell>lisa@example.com</TableCell>
-                <TableCell className="hidden md:table-cell">Asia</TableCell>
-                <TableCell className="hidden md:table-cell">9</TableCell>
-                <TableCell className="hidden sm:table-cell">Active</TableCell>
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button size="icon" variant="ghost">
-                        <MoreHorizontalIcon className="w-4 h-4" />
-                        <span className="sr-only">Actions</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
+              {filteredCustomers.map((customer) => (
+                <TableRow key={customer.id}>
+                  <TableCell className="font-medium">{customer.name}</TableCell>
+                  <TableCell>{customer.email}</TableCell>
+                  <TableCell className="hidden md:table-cell">{customer.location}</TableCell>
+                  <TableCell className="hidden md:table-cell">{customer.orders}</TableCell>
+                  <TableCell className="hidden sm:table-cell">{customer.status}</TableCell>
+                  <TableCell className="text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button size="icon" variant="ghost">
+                          <MoreHorizontalIcon className="w-4 h-4" />
+                          <span className="sr-only">Actions</span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem>View customer</DropdownMenuItem>
+                        <DropdownMenuItem>Edit customer</DropdownMenuItem>
+                        <DropdownMenuItem>Orders</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </div>
       </div>
     </main>
-  )
+  );
 }
+
+// Dummy data for customers
+const customers = [
+  { id: 1, name: 'Olivia Martin', email: 'olivia@example.com', location: 'USA', orders: 12, status: 'Active' },
+  { id: 2, name: 'Ava Johnson', email: 'ava@example.com', location: 'Canada', orders: 7, status: 'Active' },
+  { id: 3, name: 'Michael Johnson', email: 'michael@example.com', location: 'Europe', orders: 3, status: 'Inactive' },
+  { id: 4, name: 'Lisa Anderson', email: 'lisa@example.com', location: 'Asia', orders: 9, status: 'Active' },
+];
