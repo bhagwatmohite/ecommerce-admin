@@ -13,7 +13,7 @@ export default function Customer() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
 
-  const handleSearch = (event) => {
+  const handleSearch = (event: any) => {
     const searchValue = event.target.value.toLowerCase();
     setSearchTerm(searchValue);
     const filtered = customers.filter((customer) =>
