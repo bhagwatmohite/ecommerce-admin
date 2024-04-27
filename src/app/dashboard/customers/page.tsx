@@ -42,7 +42,8 @@ export default function Customer() {
                 <div className="grid gap-4">
                   <div className="grid gap-2">
                     <Label htmlFor="status">Status</Label>
-                    <Select id="status">
+                    {/* <Select id="status"> */}
+                    <Select>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
@@ -57,7 +58,8 @@ export default function Customer() {
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="location">Location</Label>
-                    <Select id="location">
+                    {/* <Select id="location"> */}
+                    <Select>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select location" />
                       </SelectTrigger>
