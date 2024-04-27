@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { Package2Icon, SearchIcon } from "../icons/Icons"
 import { ModeToggle } from "./ThemeModeToggle"
-
 export default function Header() {
   return (
     <header className="sticky top-0 flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
@@ -49,8 +48,18 @@ export default function Header() {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem>
+          <DropdownMenuItem> <Link href={{
+            pathname: '/dashboard/account/settings',
+          }}>
+            Settings
+          </Link></DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href={{
+              pathname: '/dashboard/account/supports',
+            }}>
+              Supports
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Logout</DropdownMenuItem>
         </DropdownMenuContent>
