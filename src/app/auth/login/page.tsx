@@ -30,7 +30,9 @@ export default function Login() {
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
                 <Link
-                  href="/forgot-password"
+                  href={{
+                    pathname: '/auth/forgotpassword',
+                  }}
                   className="ml-auto inline-block text-sm underline"
                 >
                   Forgot your password?

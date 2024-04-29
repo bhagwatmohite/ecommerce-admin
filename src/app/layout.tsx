@@ -19,21 +19,24 @@ export default function RootLayout({
 }>) {
   return (
     < html lang="en" >
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-        // enableSystem
-        // disableTransitionOnChange
-        >
-          <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
-            <Sidenavbar />
-            <div className="flex flex-col">
-              <Header />
-              {children}
+      <body className={inter.className} id="style-4">
+        <div className="app-container" >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+          // enableSystem
+          // disableTransitionOnChange
+          >
+            <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
+              <Sidenavbar />
+              <div className="flex flex-col">
+                <Header />
+                {children}
+              </div>
             </div>
-          </div>
-        </ThemeProvider>
+            {/* <Footer /> */}
+          </ThemeProvider>
+        </div>
       </body>
     </html >
 
